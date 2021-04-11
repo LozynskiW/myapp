@@ -1,0 +1,70 @@
+<head>
+    <style>
+        .btn-large {
+            width: 100%;
+        }
+
+    </style>
+</head>
+<div class="row">
+    <div class="col s2"></div>
+    <div class="col s8">
+        <div class="card-panel grey darken-3 center-align">
+            <h1 class="grey-text text-lighten-2">Register your account</h1>
+        </div>
+    </div>
+    <div class="col s2"></div>
+</div> 
+
+<div class="row">
+    <div class="col s2"></div>
+    <div class="col s8">
+        {{#if error}}
+        <div class="card-panel red darken-4">
+            <h2>{{error}}</h2>
+        </div>
+        {{/if}}
+    </div>
+    <div class="col s2"></div>
+</div>      
+
+<div class="container">
+    <div class="row">
+        <img src="/images/register.jpg">
+    </div>
+
+    <div class="row">
+        <div class="col s4"></div>
+        <div class="col s4 grey darken-3">
+            <form action="/login/register" method="post">
+                <div>
+                    <label for="login">Login: </label>
+                    <input id="login" type="text" name="login"/>
+                </div>
+                <div>
+                    <label for="password">Password: </label>
+                    <input id="password" type="text" name="password"/>
+                </div>
+                <div>
+                    <label for="password">Repeat password: </label>
+                    <input id="password" type="text" name="passwordCheck"/>
+                </div>
+                <div>
+                    <input type="submit" value="Register" class="btn-large orange darken-4 waves-light">
+                </div>
+            </form>
+        </div>
+        <div class="col s4"></div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col s4">
+        <form action="/login" method="get">
+            <div>
+                <input type="submit" value="Go back to main" class="btn orange darken-4 waves-light">
+            </div>
+        </form>
+    </div>
+</div>

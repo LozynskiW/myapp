@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="card-panel grey darken-3 center-align">
+        <h1 class="grey-text text-lighten-2">See your past recommendations {{userLogin}}</h1>
+    </div>
+
+     <div class="card grey darken-3 center-align grey-text text-lighten-2 center-align">
+        <div class="card-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Recommendation</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each recommendations}}
+                    <tr>
+                        <td>{{this.stockShort}}</td>
+                        <td>{{this.recommendation}}</td>
+                        <td>{{this.date}}</td>
+                        <td>
+                        <form action="/recommendation/delete" method="post">
+                            <input type="hidden" id="stockID" name="stockID" value="{{this._id}}">
+                            <input type="submit" value="Delete" class="btn red darken-4 waves-light">
+                        </form>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <form action="/users/" method="GET">
+        <input type="hidden" id="userLogin" name="userLogin" value="{{userLogin}}">
+        <input type="submit" value="Go back to main" class="btn orange darken-4 waves-light">
+    </form>
+</div>

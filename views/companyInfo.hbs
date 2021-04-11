@@ -1,0 +1,176 @@
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+</head>
+<style>
+    .btn-large {
+        width: 100%;
+    }
+
+</style>
+
+<div class="container">
+
+    <div class="card-panel grey darken-3 center-align">
+        <h1 class="grey-text text-lighten-2">{{companyName}}</h1>
+        <h2 class="grey-text text-lighten-2">{{companyShort}}</h2>
+        <h3 id="userLoginPlace"></h3>
+    </div>
+
+    <div class="card-panel grey lighten-2">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <div>
+        <form action="/companyInfo" method="get">
+            <div class="row grey darken-3 center-align ">
+
+                <div class="col s4">
+                    <p class="card-panel blue accent-2 center-align">Time frequency</p>
+                    <div class="left-align">
+                        <label>
+                            <input type="checkbox" id="freq" name="frequency" value="1d">
+                            <span>1-day</span>
+                        </label>
+                    </div>
+                    <div class="left-align">
+                        <label>
+                            <input type="checkbox" id="freq" name="frequency" value="1wk">
+                            <span>1-week</span>
+                        </label>
+                    </div>
+                    <div class="left-align">
+                        <label>
+                            <input type="checkbox" id="freq" name="frequency" value="1mo">
+                            <span>1-month</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col s4">
+                    <p class="card-panel blue accent-2 center-align">Start date</p>
+                    <input type="date" class="datepicker" name="startDate">
+                </div>
+
+                <div class="col s4">
+                    <p class="card-panel blue accent-2 center-align">End date</p>
+                    <input type="date" class="datepicker" name="endDate">
+                </div>
+            </div>
+            <input type="hidden" id="user" name="stockShort" value="{{companyShort}}">
+            <input type="submit" value="Refresh" class="btn-large orange darken-4 waves-light">
+        </form>
+    </div>
+
+    <div class="card grey darken-3 center-align grey-text text-lighten-1">
+        <div class="card-content">
+            <p id="currentPricePlace">Current price: </p>
+            <h4>Community choices</h4>
+            <p>Long position: {{companyBuy}}</p>
+            <p>Short position: {{companySell}}</p>
+            <p>Search for another: {{companyWait}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s6">
+            <div class="card blue-grey darken-1">
+                <div class="card-content">
+                    <span class="card-title">Let us know what you recommend doing!</span>
+                    {{#if recommendationError}}
+                        <div>{{recommendationError}}</div>
+                    {{/if}}
+                    <form action="/recommendation" method="post">
+                        <input type="hidden" id="stock" name="stockShort" value="{{companyShort}}">
+
+                        <div class="card-panel light-green lighten-2 center-align">
+                            <label>
+                                <input type="checkbox" id="recommendationBuy" name="recommendation" value="buy">
+                                <span>Buy</span>
+                            </label>
+                        </div>
+
+                        <div class="card-panel red darken-3 center-align">
+                            <label>
+                                <input type="checkbox" id="recommendationSell" name="recommendation" value="sell">
+                                <span>Sell</span>
+                            </label>
+                        </div>
+
+                        <div class="card-panel grey darken-3 center-align">
+                            <label>
+                                <input type="checkbox" id="recommendationWait" name="recommendation" value="wait">
+                                <span>Wait</span>
+                            </label>
+                        </div>
+                        <input type="hidden" id="user" name="userLogin" value="{{userLogin}}">
+                        <input type="submit" value="Recommend" class="btn-large orange darken-4 waves-light">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form action="/users/" method="GET">
+        <input type="hidden" id="userLogin" name="userLogin" value="{{userLogin}}">
+        <input type="submit" value="Go back to main" class="btn orange darken-4 waves-light">
+    </form>
+
+</div>
+
+<script>
+
+    var dates = {{chartLabels}};
+    var prices = [{{chartData}}];
+    var timeStamps = [];
+    var currentPrice = prices[0].toFixed(2);
+    var currentPricePlace = document.getElementById("currentPricePlace");
+    currentPricePlace.innerHTML += currentPrice;
+    console.log(currentPrice);
+
+    for (var i=dates.length-1; i>=0; i--){
+        timeStamps.push(new Date(dates[i] * 1000).toLocaleDateString());
+    }
+
+    prices = prices.reverse();
+    var ctx = document.getElementById("myChart").getContext("2d");
+
+    var myLineChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: timeStamps,
+        datasets:[{
+            label: '{{companyShort}}',
+            data: prices,
+            borderColor: 'blue',
+            borderWidth: 2,
+            radius: 0,
+            spanGaps: true,
+            fill: false,
+        }]
+    },
+    options: {
+        borderJoinStyle: 'round',
+        scales: {
+            yAxes: [{
+                beginAtZero: true,
+            }],
+            xAxes: [{
+                ticks:{
+                    reverse: true,
+                },
+                //type: 'time',
+            }]
+        },
+    }
+
+    });
+
+    var userLogin = localStorage.getItem('user');
+
+    var test = document.getElementById("userLoginPlace");
+    var testNode = document.createTextNode(userLogin);
+    test.appendChild(testNode);
+    
+    console.log(userLogin);
+
+</script>

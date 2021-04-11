@@ -1,0 +1,7 @@
+<form action="/teams/team/" method="post">
+    <label for="team_name">Podaj nazwę: </label>
+    <input id="team_name" type="text" name="team_name" value="{{team.teamName}}"/>
+    <input type="hidden" type="text" name="_id" value="{{team._id}}"/>
+    <input type="submit" value="Zatwierdź"/>
+    <a href="/teams/">Powrót</a>
+</form>

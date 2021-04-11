@@ -1,0 +1,79 @@
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <style>
+        .btn-large {
+            width: 100%;
+        }
+
+    </style>
+</head>
+
+
+<div class="row">
+    <div class="col s2"></div>
+    <div class="col s8">
+        <div class="card-panel grey darken-3 center-align">
+            <h1 class="grey-text text-lighten-2">Log in to your account</h1>
+        </div>
+    </div>
+    <div class="col s2"></div>
+</div> 
+<div class="row">
+    <div class="col s2"></div>
+    <div class="col s8">
+        {{#if error}}
+        <div class="card-panel red darken-4">
+            <h2>{{error}}</h2>
+        </div>
+        {{/if}}
+    </div>
+    <div class="col s2"></div>
+</div>      
+
+
+<div class="container">
+    <div class="row">
+        <div class="col s3"></div>
+        <div class="col s6">
+            <div class="card grey darken-3">
+                <div class="card-image">
+                    <img src="images/logo.jpg">
+                </div>
+                <div class="card-content">
+                    <form action="/login" method="post">
+                        <div>
+                            <label for="login">Login: </label>
+                            <input id="login" type="text" name="login"/>
+                        </div>
+                        <div>
+                            <label for="password">Password: </label>
+                            <input id="password" type="text" name="password"/>
+                        </div>
+                        <div>
+                            <input class="btn-large orange darken-4 waves-light" type="submit" value="Log in">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col s3"></div>
+    </div>
+    <div class="row">
+        <div class="col s4"></div>
+        <div class="col s4">
+            <form action="/login/register" method="get">
+                <div>
+                    <input type="submit" value="Register account" class="btn-large orange darken-4 waves-light"/>
+                </div>
+            </form>
+        </div>
+        <div class="col s4"></div>
+    </div>
+</div>

@@ -1,0 +1,239 @@
+<style>
+    .btn-large {
+        width: 100%;
+    }
+
+</style>
+
+<div class="card-panel grey darken-3 center-align">
+    <h1 class="grey-text text-lighten-2">User side</h1>
+    <h2 class="grey-text text-lighten-2" id="userLoginPlace">Welcome back,</h2>
+</div>
+
+<div class="container">
+    <div class="row center-align">
+        <h1 class="grey-text text-lighten-2">Top 5 choices proposed by community</h1>
+        <div class="col s4">
+            <div class="card amber darken-4">
+                <div class="card-content">
+                    <table>
+                    <thead>
+                        <tr><h2>Hottest stocks</h2></tr>
+                        <tr>
+                            <th>Company</th>
+                            <th>Intrested investors</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each hottestStocks}}
+                        <tr>
+                            <td>{{this._id.company}}</td>
+                            <td>{{this.total}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s4">
+            <div class="card light-green lighten-2">
+                <div class="card-content">
+                    <table>
+                        <thead>
+                            <tr><h2>Buy this stocks</h2></tr>
+                            <tr>
+                                <th>Company</th>
+                                <th>Approved by</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each recommendationsBuy}}
+                            <tr>
+                                <td>{{this._id.company}}</td>
+                                <td>{{this.total}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s4">
+            <div class="card red darken-3">
+                <div class="card-content">
+                    <table>
+                        <thead>
+                            <tr><h2>Short this stocks</h2></tr>
+                            <tr>
+                                <th>Company</th>
+                                <th>Approved by</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each recommendationsSell}}
+                            <tr>
+                                <td>{{this._id.company}}</td>
+                                <td>{{this.total}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card grey darken-3 center-align">
+        <div class="card-content">
+        <table class="grey-text text-lighten-2">
+        <thead>
+            <tr><h1 class="grey-text text-lighten-2">See all stocks</h1></tr>
+            <tr>
+                <th>Company</th>
+                <th>Shortcut</th>
+                <th>Long</th>
+                <th>Short</th>
+                <th>Just wait</th>
+            </tr>
+        </thead>
+        <div>
+            <a href="?sort=1">A-Z</a>
+            <a href="?sort=-1">Z-A</a>
+            <a href="?sort={{sort}}&page={{prevPage}}">&lt;&lt;</a>
+            <a href="?sort={{sort}}&page={{nextPage}}">&gt;&gt;</a>
+        </div>
+        <tbody>
+            {{#each companies}}
+            <tr>
+                <td>{{this.company}}</td>
+                <td>{{this.shortcut}}</td>
+                <td>{{this.buy}}</td>
+                <td>{{this.sell}}</td>
+                <td>{{this.wait}}</td>
+                <td>
+                    <form action="/companyInfo" method="get">
+                        <input type="hidden" id="stockShort" name="stockShort" value="{{this.shortcut}}">
+                        <input type="submit" value="See details" class="btn orange darken-4 waves-light">
+                    </form>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+        </table>
+        </div>
+    </div>
+
+<div class="card-panel grey darken-3 center-align">
+    <h1 class="grey-text text-lighten-2">User panel</h1>
+</div>
+
+<div class="row grey-text text-lighten-2 center-align">
+    <div class="col s6">
+        <div class="card blue-grey darken-1">
+            <div class="card-content">
+                <span class="card-title">Let us know what you recommend doing!</span>
+                <div>{{recommendationError}}</div>
+                <form action="/recommendation" method="post">
+                    <label for="stockShort">Stock shortcut</label>
+                    <input type="text" id="stock" name="stockShort" placeholder="Company shortcut">
+
+                    <div class="card-panel light-green lighten-2 center-align">
+                        <label>
+                            <input type="checkbox" id="recommendationBuy" name="recommendation" value="buy">
+                            <span>Buy</span>
+                        </label>
+                    </div>
+
+                    <div class="card-panel red darken-3 center-align">
+                        <label>
+                            <input type="checkbox" id="recommendationSell" name="recommendation" value="sell">
+                            <span>Sell</span>
+                        </label>
+                    </div>
+
+                    <div class="card-panel grey darken-3 center-align">
+                        <label>
+                            <input type="checkbox" id="recommendationWait" name="recommendation" value="wait">
+                            <span>Wait</span>
+                        </label>
+                    </div>
+                    <input type="hidden" id="user" name="userLogin" value="{{userLogin}}">
+                    <input type="submit" value="Recommend" class="btn-large orange darken-4 waves-light">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col s6">
+        <div class="card blue-grey darken-1">
+            <div class="card-content">
+                <span class="card-title">Add new stock market company!</span>
+                {{#if NewCompanyError}}
+                    <div class="card-panel red darken-3 center-align">{{NewCompanyError}}</div>
+                {{/if}}
+                <form action="/recommendation/addNew/" method="post">
+                    <div>
+                        <input type="text" id="stockCompany" name="company" placeholder="company name">
+                        <input type="text" id="stockShort" name="stockShort" placeholder="stock shortcut">
+                        <input type="text" id="stockPrice" name="stockPrice" placeholder="stock price">
+                        <input type="hidden" id="user" name="userLogin" value="{{userLogin}}">
+                    </div>
+                    <input type="submit" value="Add new" class="btn-large orange darken-4 waves-light">
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div>
+    <form action="/recommendation/past" method="GET">
+        <input type="hidden" id="user" name="userLogin" value="{{userLogin}}">
+        <input type="submit" value="Past Recommendations" class="btn-large orange darken-4 waves-light">
+    </form>
+</div>
+
+
+<div>
+    <form action="/" method="GET">
+        <input type="submit" id="logOutBut" value="Log out" class="btn-large grey darken-3 center-align">
+    </form>
+</div>
+</div>
+
+<script>
+    var userLog = '{{userLogin}}';
+    var userLogPlace = document.getElementById("userLoginPlace");
+    function clearLS(){
+        localStorage.clear();
+    }
+    var logOutButton = document.getElementById('logOutBut');
+    logOutButton.addEventListener("click", clearLS);
+
+
+    function addUserToStorage(userLogin){
+        localStorage.setItem('user', userLogin);
+    }
+    
+    function checkIfUserIsLogged(){
+        var user;
+        if (localStorage.getItem('user')){
+            user = localStorage.getItem('user');
+            return true;
+        } else return false;        
+    }
+
+    function LsHandle(){
+        if (!checkIfUserIsLogged()){
+            addUserToStorage(userLog);
+        } else {
+            userLog = localStorage.getItem('user');
+        }
+    }
+    LsHandle();
+    userLogPlace.innerHTML += userLog;
+    console.log(localStorage.getItem('user'));
+</script>

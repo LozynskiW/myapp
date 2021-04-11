@@ -1,0 +1,92 @@
+[{
+    "company" : "CD Projekt",
+    "shortcut" : "CDR",
+    "price" : "260",
+    "buy" : 0,
+    "sell" : 0,
+    "wait": 0
+},{
+    "company" : "One More Level",
+    "shortcut" : "OML",
+    "price" : "10",
+    "buy" : 0,
+    "sell" : 0,
+    "wait": 0
+},{
+    "company" : "PZU SA",
+    "shortcut" : "PZU",
+    "price" : "30",
+    "buy" : 0,
+    "sell" : 0,
+    "wait": 0
+},{
+    "company" : "Mercator Medical",
+    "shortcut" : "MRC",
+    "price" : "401",
+    "buy" : 0,
+    "sell" : 0,
+    "wait": 0
+},{
+    "company" : "CI Games",
+    "shortcut" : "CIG",
+    "price" : "1.22",
+    "buy" : 0,
+    "sell" : 0,
+    "wait": 0
+},{
+    "company" : "Bloober Team",
+    "shortcut" : "BLO",
+    "price" : "197.6",
+    "buy" : 0,
+    "sell" : 0,
+    "wait": 0
+},{
+    "company" : "The Dust",
+    "shortcut" : "THD",
+    "price" : "30",
+    "buy" : 0,
+    "sell" : 0,
+    "wait": 0
+},{
+    "company" : "Jujubee",
+    "shortcut" : "JJB",
+    "price" : "4.41",
+    "buy" : 0,
+    "sell" : 0,
+    "wait": 0
+},{
+    "company" : "Ultimate Games",
+    "shortcut" : "ULG",
+    "price" : "30",
+    "buy" : 0,
+    "sell" : 0,
+    "wait": 0
+},{
+    "company" : "Ten Square Games",
+    "shortcut" : "TEN",
+    "price" : "519",
+    "buy" : 0,
+    "sell" : 0,
+    "wait": 0
+},{
+    "company" : "Ambra",
+    "shortcut" : "AMB",
+    "price" : "18.2",
+    "buy" : 0,
+    "sell" : 0,
+    "wait": 0
+},{
+    "company" : "BoomBit",
+    "shortcut" : "BBT",
+    "price" : "16.6",
+    "buy" : 0,
+    "sell" : 0,
+    "wait": 0
+},{
+    "company" : "Alior Bank",
+    "shortcut" : "ALR",
+    "price" : "16.5",
+    "buy" : 0,
+    "sell" : 0,
+    "wait": 0
+}]

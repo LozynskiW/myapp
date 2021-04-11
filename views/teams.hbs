@@ -1,0 +1,38 @@
+<h1>Lista drużyn</h1>
+
+<form action="/teams/" method="GET">
+    <label>Wpisz frazę</label>
+    <input type="text" name="search"/>
+    <input type="hidden" name="sort" value="{{sort}}"/>
+    <input type="submit" value="Szukaj"/>
+</form>
+<table>
+    <thead>
+        <tr>
+            <th>Nazwa</th>
+            <th>Opcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each teams}}
+        <tr>
+            <td>{{this.teamName}}</td>
+            <td>
+                <a href="team/?id={{this._id}}">Edytuj</a>
+                <a href="team-delete/?id={{this._id}}">Usuń</a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<div>
+    Znaleziono {{count}} rekord(y/ów)
+</div>
+<div>
+    <a href="?sort=1">A-Z</a>
+    <a href="?sort=-1">Z-A</a>
+    <a href="?sort={{sort}}&page={{prevPage}}">&lt;&lt;</a>
+    <a href="?sort={{sort}}&page={{nextPage}}">&gt;&gt;</a>
+
+    <a href="team/">Dodaj</a>
+</div>
